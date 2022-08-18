@@ -6,31 +6,45 @@ header {
   display: flex;
   justify-content: space-between;
   height: 100px;
-  border: 1px solid red;
+  /* border: 1px solid red; */
 }
 
 main {
   display: flex;
   justify-content: center;
-  border: 1px solid red;
+  /* border: 1px solid red; */
 }
 
-main div {
+.show,
+.hide {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   width: 50%;
-  border: 1px solid red;
   text-align: center;
+  /* border: 1px solid red; */
+}
+
+.show h1,
+.hide h1 {
+  width: 100%;
+}
+
+.show p {
+  padding: 5px 20px;
 }
 
 .btn {
+  display: flex;
+  align-items: center;
   outline: none;
   border: none;
   padding: 10px 15px;
   background-color: var(--primary);
+  color: #fff;
   border-radius: 12px;
-  box-shadow: 0 3px 4px;
+  box-shadow: 0 3px 4px black;
+  width: 70px;
 }
 
 .btn:hover {
@@ -39,4 +53,11 @@ main div {
 
 .btn:active {
   box-shadow: 0 0 2px;
+}
+
+.hide {
+  display: none;
+}
+
+.show {
 }
