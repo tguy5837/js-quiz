@@ -1,18 +1,46 @@
-var startBtn = document.querySelector("#start-btn");
-var timer = document.querySelector("#timer");
-
-var questionArray = [
+// question list
+var questionList = [
     {
-        question: "I am a question.",
+        question: "What is the answer to this question?",
         choices: ["Answer1", "Answer2", "Answer3", "Answer4"],
-        answer: "Answer2"
+        answer: "3"
+    },
+    {
+        question: "Okay, so what is the answer to THIS question?",
+        choices: ["Answer1", "Answer2", "Answer3", "Answer4"],
+        answer: "1"
+    },
+    {
+        question: "What about this one?",
+        choices: ["Answer1", "Answer2", "Answer3", "Answer4"],
+        answer: "2"
     }
+
 ]
+
+// targeting start info elements
+var startBtn = document.querySelector("#start-btn");
+
+// targeting question container elements
+var questionText = document.querySelector("#question-text");
+
+var choiceContainer = document.querySelector("#choice-container");
+
+var choiceOne = document.querySelector("#choice-one");
+var choiceTwo = document.querySelector("#choice-two");
+var choiceThree = document.querySelector("#choice-three");
+var choiceFour = document.querySelector("#choice-four");
+
+// score variables
+var score = 0;
+
+// timer variables
+var timer = document.querySelector("#timer");
+var timeRemaining = 15 * questionList.length;
 
 var startTimer = function () {
     // Display start time
-    var timeRemaining = 75;
-    timer.textContent = ("Time Remaining: " + timeRemaining)
+    timer.textContent = ("Time Remaining: " + timeRemaining);
     // Start counting down
     var countDown = setInterval(function () {
         if (timeRemaining > 0) {
@@ -27,13 +55,58 @@ var startTimer = function () {
 
 };
 
+var endGame = function () {
+    console.log("Done!!");
+}
+
 var startQuiz = function () {
-    var showEl = document.querySelector("#startInfo")
-    showEl.setAttribute("class", "hide");
+    // hide start info
+    var startEl = document.querySelector("#start-info")
+    startEl.setAttribute("class", "hide");
 
-    var questions = function () {
+    // show question div
+    var questionsEl = document.querySelector("#question-container");
+    questionsEl.setAttribute("class", "show");
 
-    }
+    var i = 0;
+
+    var displayQuestions = function () {
+        var selectedAnswer = "";
+        // if (timeRemaining == 0 || !questionList[i].question) {
+        //     endGame();
+        // }
+        questionText.textContent = questionList[i].question;
+        choiceOne.textContent = questionList[i].choices[0];
+        choiceTwo.textContent = questionList[i].choices[1];
+        choiceThree.textContent = questionList[i].choices[2];
+        choiceFour.textContent = questionList[i].choices[3];
+
+        choiceContainer.addEventListener("click", function (event) {
+            var element = event.target;
+            var selectedAnswer = element.getAttribute("data-number");
+            // debugger;
+            if (selectedAnswer == questionList[i].answer) {
+                score = score + 1;
+                console.log(score);
+
+                i++;
+
+                displayQuestions();
+            } else if (selectedAnswer && !questionList[i].answer) {
+                timeRemaining = timeRemaining - 15;
+                timer.textContent = ("Time Remaining: " + timeRemaining);
+
+                i++;
+
+                displayQuestions();
+            };
+
+        });
+
+    };
+
+
+    displayQuestions();
 }
 
 startBtn.addEventListener("click", startTimer);
