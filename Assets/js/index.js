@@ -33,6 +33,7 @@ var choiceFour = document.querySelector("#choice-four");
 
 // score variables
 var score = 0;
+var correctOrIncorrect = document.querySelector("#correct-or-incorrect");
 
 // timer variables
 var timer = document.querySelector("#timer");
@@ -76,12 +77,15 @@ var startQuiz = function () {
     var i = 0;
 
     var displayCurrentQuestion = function (currentQuestion) {
+
         if (questionList[currentQuestion]) {
+            correctOrIncorrect.textContent = "";
             questionText.textContent = questionList[currentQuestion].question;
             choiceOne.textContent = questionList[currentQuestion].choices[0];
             choiceTwo.textContent = questionList[currentQuestion].choices[1];
             choiceThree.textContent = questionList[currentQuestion].choices[2];
             choiceFour.textContent = questionList[currentQuestion].choices[3];
+
         } else {
             endGame();
         }
@@ -99,7 +103,10 @@ var startQuiz = function () {
                 score++;
                 i++;
                 console.log("Correct.", score);
-                displayCurrentQuestion(i)
+                correctOrIncorrect.textContent = "Correct!";
+                setTimeout(function () {
+                    displayCurrentQuestion(i);
+                }, 1000);
 
             } else if (selectedAnswer && selectedAnswer != questionList[i].answer) {
                 timeRemaining = timeRemaining - 15;
@@ -107,7 +114,10 @@ var startQuiz = function () {
 
                 i++;
                 console.log("Incorrect.", score)
-                displayCurrentQuestion(i)
+                correctOrIncorrect.textContent = "Incorrect.";
+                setTimeout(function () {
+                    displayCurrentQuestion(i);
+                }, 1000);
             };
         });
     } else {
