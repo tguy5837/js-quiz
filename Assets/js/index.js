@@ -54,11 +54,13 @@ var startTimer = function () {
             clearInterval(countDown);
         }
     }, 1000)
-
+    startQuiz();
 };
 
 var endGame = function () {
-    console.log("Done!!");
+    var finalScore = Math.floor((score / questionList.length) * 100);
+
+    console.log(finalScore);
 }
 
 var startQuiz = function () {
@@ -73,48 +75,45 @@ var startQuiz = function () {
     // make sure we start on question 1
     var i = 0;
 
-    var displayQuestions = function () {
-        // if (timeRemaining == 0 || !questionList[i].question) {
-        //     endGame();
-        // }
-
-        if (timeRemaining > 0 && i != questionList.length) {
-            questionText.textContent = questionList[i].question;
-            choiceOne.textContent = questionList[i].choices[0];
-            choiceTwo.textContent = questionList[i].choices[1];
-            choiceThree.textContent = questionList[i].choices[2];
-            choiceFour.textContent = questionList[i].choices[3];
-
-            choiceContainer.addEventListener("click", function (event) {
-                // debugger;
-                var element = event.target;
-                var selectedAnswer = element.getAttribute("data-number");
-                if (selectedAnswer == questionList[i].answer) {
-                    score = score + 1;
-                    console.log(i);
-
-                    i++;
-
-                    console.log(i);
-
-                    displayQuestions();
-                } else if (selectedAnswer && selectedAnswer != questionList[i].answer) {
-                    timeRemaining = timeRemaining - 15;
-                    timer.textContent = ("Time Remaining: " + timeRemaining);
-
-                    i++;
-                    displayQuestions();
-                };
-
-            });
+    var displayCurrentQuestion = function (currentQuestion) {
+        if (questionList[currentQuestion]) {
+            questionText.textContent = questionList[currentQuestion].question;
+            choiceOne.textContent = questionList[currentQuestion].choices[0];
+            choiceTwo.textContent = questionList[currentQuestion].choices[1];
+            choiceThree.textContent = questionList[currentQuestion].choices[2];
+            choiceFour.textContent = questionList[currentQuestion].choices[3];
         } else {
             endGame();
         }
-    };
+    }
 
+    if (timeRemaining > 0 && i < questionList.length) {
+        displayCurrentQuestion(i);
+        choiceContainer.addEventListener("click", function (event) {
+            // debugger;
+            // console.log(i);
+            var element = event.target;
+            var selectedAnswer = element.getAttribute("data-number");
 
-    displayQuestions();
-}
+            if (selectedAnswer === questionList[i].answer) {
+                score++;
+                i++;
+                console.log("Correct.", score);
+                displayCurrentQuestion(i)
+
+            } else if (selectedAnswer && selectedAnswer != questionList[i].answer) {
+                timeRemaining = timeRemaining - 15;
+                timer.textContent = ("Time Remaining: " + timeRemaining);
+
+                i++;
+                console.log("Incorrect.", score)
+                displayCurrentQuestion(i)
+            };
+        });
+    } else {
+        endGame();
+        return;
+    }
+};
 
 startBtn.addEventListener("click", startTimer);
-startBtn.addEventListener("click", startQuiz);
