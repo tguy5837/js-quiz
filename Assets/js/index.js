@@ -39,38 +39,52 @@ var correctOrIncorrect = document.querySelector("#correct-or-incorrect");
 var timer = document.querySelector("#timer");
 var timeRemaining = 15 * questionList.length;
 
+// different page variables
+var startEl = document.querySelector("#start-info")
+var questionsEl = document.querySelector("#question-container");
+var enterNameEl = document.querySelector("#enter-name-page");
+
+
 var startTimer = function () {
     // Display start time
     timer.textContent = ("Time Remaining: " + timeRemaining);
     // Start counting down
     var countDown = setInterval(function () {
-        if (timeRemaining > 1) {
-            timeRemaining = timeRemaining - 1;
-            timer.textContent = ("Time Remaining: " + timeRemaining)
-        }
-        // When timer runs out:
-        else if (timeRemaining <= 1) {
-            timeRemaining = timeRemaining - 1;
+        if (timeRemaining <= 0) {
             timer.textContent = ("Time Remaining: " + timeRemaining)
             clearInterval(countDown);
+            endGame();
+        }
+        else if (timeRemaining > 0) {
+            timeRemaining = timeRemaining - 1;
+            timer.textContent = ("Time Remaining: " + timeRemaining)
         }
     }, 1000)
     startQuiz();
 };
 
 var endGame = function () {
-    var finalScore = Math.floor((score / questionList.length) * 100);
+    timeRemaining = 0;
+    timer.textContent = ("")
 
+    // score variables
+    var finalScore = Math.floor((score / questionList.length) * 100);
+    var yourScore = document.querySelector("#your-score");
+
+    questionsEl.setAttribute("class", "hide");
+    enterNameEl.setAttribute("class", "show");
+
+    yourScore.textContent = "Your Final Score: " + finalScore;
     console.log(finalScore);
 }
 
+
+
 var startQuiz = function () {
     // hide start info
-    var startEl = document.querySelector("#start-info")
     startEl.setAttribute("class", "hide");
 
     // show question div
-    var questionsEl = document.querySelector("#question-container");
     questionsEl.setAttribute("class", "show");
 
     // make sure we start on question 1
@@ -79,15 +93,20 @@ var startQuiz = function () {
     var displayCurrentQuestion = function (currentQuestion) {
 
         if (questionList[currentQuestion]) {
-            correctOrIncorrect.textContent = "";
             questionText.textContent = questionList[currentQuestion].question;
             choiceOne.textContent = questionList[currentQuestion].choices[0];
             choiceTwo.textContent = questionList[currentQuestion].choices[1];
             choiceThree.textContent = questionList[currentQuestion].choices[2];
             choiceFour.textContent = questionList[currentQuestion].choices[3];
+            setTimeout(function () {
+                correctOrIncorrect.textContent = "";
+            }, 1800);
 
         } else {
-            endGame();
+            setTimeout(function () {
+                endGame();
+            }, 1000);
+
         }
     }
 
@@ -104,20 +123,15 @@ var startQuiz = function () {
                 i++;
                 console.log("Correct.", score);
                 correctOrIncorrect.textContent = "Correct!";
-                setTimeout(function () {
-                    displayCurrentQuestion(i);
-                }, 1000);
+                displayCurrentQuestion(i);
 
             } else if (selectedAnswer && selectedAnswer != questionList[i].answer) {
                 timeRemaining = timeRemaining - 15;
                 timer.textContent = ("Time Remaining: " + timeRemaining);
-
                 i++;
                 console.log("Incorrect.", score)
                 correctOrIncorrect.textContent = "Incorrect.";
-                setTimeout(function () {
-                    displayCurrentQuestion(i);
-                }, 1000);
+                displayCurrentQuestion(i);
             };
         });
     } else {
@@ -126,4 +140,6 @@ var startQuiz = function () {
     }
 };
 
-startBtn.addEventListener("click", startTimer);
+if (document.URL.includes("index.html")) {
+    startBtn.addEventListener("click", startTimer);
+};

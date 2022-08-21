@@ -9,7 +9,7 @@
   </head>
   <body>
     <header>
-      <a href="#">View High Scores</a>
+      <a href="./high-score.html">View High Scores</a>
       <p id="timer"></p>
     </header>
     <main>
@@ -32,6 +32,19 @@
           <br />
           <p id="correct-or-incorrect"></p>
         </ul>
+      </div>
+      <div class="hide" id="enter-name-page">
+        <h1 id="your-score"></h1>
+        <p>Enter Your Name:</p>
+        <br />
+        <label for="name">Your Name</label>
+        <input
+          type="text"
+          name="name"
+          id="name"
+          placeholder="JavaScript Ninja"
+        />
+        <button id="save-name">Submit</button>
       </div>
     </main>
     <footer>
