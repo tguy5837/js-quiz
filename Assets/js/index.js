@@ -70,14 +70,34 @@ var endGame = function () {
     // score variables
     var finalScore = Math.floor((score / questionList.length) * 100);
     var yourScore = document.querySelector("#your-score");
+    var nameInput = document.querySelector("#name")
 
+    var saveScore = document.querySelector("#save-score");
+
+    // hide questions & show name prompt
     questionsEl.setAttribute("class", "hide");
     enterNameEl.setAttribute("class", "show");
 
-    yourScore.textContent = "Your Final Score: " + finalScore;
-    console.log(finalScore);
+    // display final score
+    yourScore.textContent = "Your Final Score: " + finalScore + "/100";
+
+    saveScore.addEventListener("click", function () {
+
+        var playerOb = {
+            playerName: nameInput.value.trim(),
+            playerScore: finalScore
+        }
+
+        localStorage.setItem("player", JSON.stringify(playerOb));
+
+        location.replace("./high-score.html");
+    });
 }
 
+if (document.URL.includes("high-score.html")) {
+
+
+}
 
 
 var startQuiz = function () {
