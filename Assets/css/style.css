@@ -53,6 +53,24 @@ main {
   box-shadow: 0 0 2px;
 }
 
+.answer-btn {
+  outline: none;
+  border: none;
+  padding: 10px 15px;
+  margin: 15px;
+  background-color: var(--primary);
+  color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 3px 4px black;
+  text-align: left;
+}
+
+.choices {
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+}
+
 .hide {
   display: none;
 }

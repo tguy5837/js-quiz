@@ -14,21 +14,22 @@
     </header>
     <main>
       <div class="show" id="start-info">
-        <h1>JavaScript Quiz</h1>
+        <h1>JavaScript Quiz Game</h1>
         <p>
-          This quiz will test your knowledge of JavaScript through a series of
-          questions. You will have 75 seconds to complete the test.
+          This game consists of five questions that will test your knowledge of
+          JavaScript! The game will begin with 75 seconds on the clock. An
+          incorrect answer will cause 15 seconds to come off of the clock!
         </p>
         <p>Click the 'Start' button to begin!</p>
         <button class="btn" id="start-btn">Start</button>
       </div>
       <div class="hide" id="question-container">
         <h1 id="question-text"></h1>
-        <ul id="choice-container">
-          <button id="choice-one" data-number="1"></button>
-          <button id="choice-two" data-number="2"></button>
-          <button id="choice-three" data-number="3"></button>
-          <button id="choice-four" data-number="4"></button>
+        <ul class="choices" id="choice-container">
+          <button class="answer-btn" id="choice-one" data-number="1"></button>
+          <button class="answer-btn" id="choice-two" data-number="2"></button>
+          <button class="answer-btn" id="choice-three" data-number="3"></button>
+          <button class="answer-btn" id="choice-four" data-number="4"></button>
           <br />
           <p id="correct-or-incorrect"></p>
         </ul>
