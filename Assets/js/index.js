@@ -44,6 +44,7 @@ var choiceFour = document.querySelector("#choice-four");
 // score variables
 var score = 0;
 var correctOrIncorrect = document.querySelector("#correct-or-incorrect");
+var allHighScores = []
 
 // timer variables
 var timer = document.querySelector("#timer");
@@ -84,7 +85,7 @@ var endGame = function () {
     // score variables
     var finalScore = Math.floor((score / questionList.length) * 100);
     var yourScore = document.querySelector("#your-score");
-    var nameInput = document.querySelector("#name")
+    var nameInput = document.querySelector("#name");
 
     var saveScore = document.querySelector("#save-score");
 
@@ -102,14 +103,25 @@ var endGame = function () {
             playerScore: finalScore
         }
 
-        localStorage.setItem("player", JSON.stringify(playerOb));
+
+        allHighScores += JSON.stringify(playerOb);;
+
+        console.log(allHighScores);
+
+        localStorage.setItem("allHighScores", JSON.stringify(allHighScores));
 
         location.replace("./high-score.html");
     });
 }
 
 if (document.URL.includes("high-score.html")) {
+    allHighScores = localStorage.getItem("allHighScores");
 
+    console.log(allHighScores);
+
+    allHighScores = JSON.parse(allHighScores);
+
+    var highScoreList = document.querySelector("high-score-list");
 
 }
 
