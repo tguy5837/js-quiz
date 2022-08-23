@@ -1,19 +1,29 @@
 // question list
 var questionList = [
     {
-        question: "What is the answer to this question?",
-        choices: ["Answer1", "Answer2", "Answer3", "Answer4"],
+        question: "Which of the following is NOT a Javascript data-type?",
+        choices: ["a) Strings", "b) Pizza", "c) Boolean", "d) Number"],
+        answer: "2"
+    },
+    {
+        question: "Which of the following keywords is used to define a variable in Javascript?",
+        choices: ["a) Var", "b) Let", "c) Const", "d) All of the above"],
+        answer: "4"
+    },
+    {
+        question: "Which of the following methods is NOT used to access HTML elements using Javascript?",
+        choices: ["a) getElementById", "b) getElementByClassName", "c) getElementByNickName", "d) querySelector"],
         answer: "3"
     },
     {
-        question: "Okay, so what is the answer to THIS question?",
-        choices: ["Answer1", "Answer2", "Answer3", "Answer4"],
-        answer: "1"
+        question: "What does the Javascript 'debugger' statement do?",
+        choices: ["a) It will debug all the errors in the program at runtime.", "b) It acts as a breakpoint in the program.", "c) It will debug error in the current statement if any.", "d) All of the above"],
+        answer: "4"
     },
     {
-        question: "What about this one?",
-        choices: ["Answer1", "Answer2", "Answer3", "Answer4"],
-        answer: "2"
+        question: "How do you stop an interval timer in Javascript?",
+        choices: ["a) clearInterval", "b) stopInterval", "c) clearTime", "d) clearTimer"],
+        answer: "1"
     }
 
 ]
@@ -57,6 +67,10 @@ var startTimer = function () {
         }
         else if (timeRemaining > 0) {
             timeRemaining = timeRemaining - 1;
+            if (timeRemaining <= 10) {
+                var redText = document.querySelector("#timer");
+                redText.setAttribute("class", "red-text");
+            }
             timer.textContent = ("Time Remaining: " + timeRemaining)
         }
     }, 1000)
