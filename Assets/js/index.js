@@ -186,6 +186,4 @@ var startQuiz = function () {
     }
 };
 
-// if (document.URL.includes("index.html")) {
 startBtn.addEventListener("click", startTimer);
-// };
